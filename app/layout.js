@@ -2,6 +2,10 @@ import { Lora, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/ui/themes";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 const lora = Lora({
     subsets: ["latin"],
@@ -26,15 +30,23 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={`${lora.variable} ${dmSans.variable} font-sans`}>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
+                <ClerkProvider
+                    appearance={{
+                        theme: dark,
+                    }}
                 >
-                    <main className="min-h-screen">{children}</main>
-                    <Toaster richColors />
-                </ThemeProvider>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="dark"
+                        enableSystem={false}
+                        disableTransitionOnChange
+                    >
+                        <Header />
+                        <main className="min-h-screen">{children}</main>
+                        <Toaster richColors />
+                        <Footer />
+                    </ThemeProvider>
+                </ClerkProvider>
             </body>
         </html>
     );
