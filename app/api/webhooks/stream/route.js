@@ -167,7 +167,7 @@ export async function POST(request) {
             );
 
             console.log(
-                `[stream-webhook] Sending transcript to Groq (llama-3.3-70b-versatile)...`,
+                `[stream-webhook] Sending transcript to Groq (openai/gpt-oss-20b)...`,
             );
 
             const groq = new Groq({
@@ -205,7 +205,7 @@ Respond ONLY with a valid JSON object:
 }`;
 
             const completion = await groq.chat.completions.create({
-                model: "llama-3.3-70b-versatile",
+                model: "openai/gpt-oss-20b",
                 messages: [
                     {
                         role: "system",
